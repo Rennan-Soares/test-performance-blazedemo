@@ -1,0 +1,57 @@
+name: Execução de Testes de Performance (JMeter)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: # Permite rodar manualmente pelo botão no GitHub
+
+jobs:
+  performance-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Faz o checkout do código do seu repositório
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # 2. Instala o Java (necessário para rodar o JMeter)
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    # 3. Baixa e instala o Apache JMeter de forma automatizada
+    - name: Install Apache JMeter
+      run: |
+        wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz
+        tar -xzf apache-jmeter-5.6.3.tgz
+        echo "$(pwd)/apache-jmeter-5.6.3/bin" >> $GITHUB_PATH
+
+    # 4. Executa o Teste de Carga (Load Test)
+    - name: Run JMeter Load Test
+      run: |
+        jmeter -n -t scripts/blazedemo_test.jmx -l resultados_carga.jtl -e -o ./relatorio-carga
+
+    # 5. Executa o Teste de Pico (Spike Test)
+    - name: Run JMeter Spike Test
+      run: |
+        jmeter -n -t scripts/blazedemo_spike_test.jmx -l resultados_pico.jtl -e -o ./relatorio-pico
+
+    # 6. Salva o relatório do Teste de Carga como artefato
+    - name: Upload Load Test Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: jmeter-load-test-report
+        path: ./relatorio-carga/
+        retention-days: 7
+
+    # 7. Salva o relatório do Teste de Pico como artefato
+    - name: Upload Spike Test Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: jmeter-spike-test-report
+        path: ./relatorio-pico/
+        retention-days: 7

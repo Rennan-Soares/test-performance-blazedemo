@@ -21,6 +21,7 @@ Para que o cenário fosse considerado bem-sucedido, a aplicação deveria suport
   3. `03_Purchase` (POST) - Escolha do voo e preenchimento dos dados do passageiro.
   4. `04_Confirmation` (POST) - Confirmação da compra (validada via *Response Assertion* com o texto `"Thank you for your purchase today!"`).
 * **Gerenciamento de Estado:** *HTTP Cookie Manager* e *HTTP Request Defaults*.
+* **CI/CD:** GitHub Actions.
 
 ---
 
@@ -43,6 +44,21 @@ Por boas práticas de engenharia de performance, os testes foram executados via 
 
 3. Para executar o Teste de Pico, utilize o seguinte comando:
     jmeter -n -t scripts/blazedemo_spike_test.jmx -l resultados_pico.jtl -e -o ./relatorio-pico
+
+---
+
+### 🔄 Integração Contínua (CI/CD)
+O projeto conta com uma esteira automatizada utilizando o GitHub Actions. Toda vez que um push ou pull request é realizado na branch main, a pipeline é disparada automaticamente em um ambiente Ubuntu isolado.
+
+Fluxo da Pipeline:
+* **Fluxo da Pipeline:**
+  1. Realiza o checkout do código do repositório.
+  2. Configura o ambiente com o Java JDK 17.
+  3. Baixa e instala a versão correta do Apache JMeter (v5.6.3).
+  4. Executa de forma sequencial os testes de Carga e Pico.
+  5. Publica os resultados gerados como artefatos de build (.zip).
+
+Os relatórios HTML completos e interativos de cada execução podem ser baixados diretamente na aba Actions do repositório após o término da esteira.
 
 ---
 
