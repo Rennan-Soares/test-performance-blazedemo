@@ -1,3 +1,5 @@
+[![Execução de Testes de Performance (JMeter)](https://github.com/Rennan-Soares/test-performance-blazedemo/actions/workflows/performance.yml/badge.svg)](https://github.com/Rennan-Soares/test-performance-blazedemo/actions/workflows/performance.yml)
+
 # 🚀 Teste Técnico de Performance - BlazeDemo
 
 Este repositório contém a solução desenvolvida para o desafio técnico de engenharia de performance. O objetivo principal foi mapear o fluxo de compra de passagens aéreas na plataforma [BlazeDemo](https://www.blazedemo.com) e validar o comportamento e resiliência do sistema sob cenários controlados de **Carga** e **Pico (Spike Test)**.
