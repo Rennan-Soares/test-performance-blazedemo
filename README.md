@@ -44,6 +44,8 @@ Por boas práticas de engenharia de performance, os testes foram executados via 
 3. Para executar o Teste de Pico, utilize o seguinte comando:
     jmeter -n -t scripts/blazedemo_spike_test.jmx -l resultados_pico.jtl -e -o ./relatorio-pico
 
+---
+
 ### 📊 Relatório de Execução e Análise Técnica
 
 1. Cenário A: Teste de Carga (Load Test)
