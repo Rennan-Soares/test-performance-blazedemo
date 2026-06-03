@@ -1,0 +1,13 @@
+# Logs brutos do JMeter (muito pesados)
+*.jtl
+*.log
+
+# Pastas locais de relatórios descompactados
+bin/relatorio-html/
+bin/relatorio-pico/
+relatorio-html/
+relatorio-pico/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
